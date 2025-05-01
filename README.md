@@ -14,7 +14,7 @@ This mod enables collaborative research and blueprint sharing in Mindustry multi
 ### Method 1: Import GitHub Repository
 1. In Mindustry, go to `Mods`
 2. Click `Import GitHub Mod`
-3. Enter: `YourGitHubUsername/shared-tech-tree`
+3. Enter: `QQumber/shared-tech-tree`
 4. Click `OK`
 
 ### Method 2: Manual Installation
