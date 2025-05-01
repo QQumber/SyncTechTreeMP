@@ -1,0 +1,52 @@
+apply plugin: "java"
+
+version '1.0'
+
+targetCompatibility = 8
+sourceCompatibility = 8
+
+repositories{
+    mavenCentral()
+    maven{ url 'https://www.jitpack.io' }
+}
+
+ext{
+    // Mindustry dependency version
+    mindustryVersion = 'v136'
+}
+
+dependencies{
+    compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
+    compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
+}
+
+// Java version compatibility
+tasks.withType(JavaCompile){
+    options.encoding = "UTF-8"
+}
+
+// Creates the JAR file for distribution
+jar{
+    archiveFileName = "${project.name}.jar"
+    
+    from{
+        configurations.runtimeClasspath.collect{
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+
+    from(rootDir){
+        include "mod.json"
+        include "icon.png"
+    }
+}
+
+// Actual building task
+task buildMod(dependsOn: jar){
+    doLast{
+        copy{
+            from "${buildDir}/libs/${project.name}.jar"
+            into "${buildDir}/distributions/"
+        }
+    }
+}
